@@ -25,7 +25,7 @@ public class Influenza_k {
 
     public static City[] heapSort(City[] c) {
         City[] temp = new City[c.length];
-        for (int i = c.length - 1; i > 0; i--) {
+        for (int i = c.length-1 ; i > 0; i--) {
             temp[i] = c[1];
             c[1] = c[i];
             heapify(c, i);
@@ -34,32 +34,7 @@ public class Influenza_k {
     }
 
     public static void main(String args[]) {
-        
-        /*  File file = new File(filename);
-        FileWriter writer = new FileWriter("inf.txt");
-        City city1 = new City(17, "Vienna", 1975000, 2200);
-        City city2 = new City(38, "Amsterdam", 921402, 1050);
-        City city3 = new City(65, "Paris", 2102650, 3504);
-        City city4 = new City(47, "Athens", 698567, 830);
-        City city5 = new City(12, "Thessaloniki", 319045, 413);
-        writer.write(city1.getID() + " " + city1.getName() + " " + city1.getPopulation() + " "
-                    + city1.getInfluenzaCases() + "\n");
-            writer.write(city2.getID() + " " + city2.getName() + " " + city2.getPopulation() + " "
-                    + city2.getInfluenzaCases() + "\n");
-            writer.write(city3.getID() + " " + city3.getName() + " " + city3.getPopulation() + " "
-                    + city3.getInfluenzaCases() + "\n");
-            writer.write(city4.getID() + " " + city4.getName() + " " + city4.getPopulation() + " "
-                    + city4.getInfluenzaCases() + "\n");
-            writer.write(city5.getID() + " " + city5.getName() + " " + city5.getPopulation() + " "
-                    + city5.getInfluenzaCases() + "\n");
-            writer.close();
-            City[] city = new City[6];
-            city[1] = city1;
-            city[2] = city2;
-            city[3] = city3;
-            city[4] = city4;
-            city[5] = city5;
-        */
+
         try{
             Scanner in = new Scanner(System.in);
             System.out.print("Give file name: ");
@@ -76,9 +51,18 @@ public class Influenza_k {
             
             readFile(filename, city);
             
-            heapify(city, city.length - 1);
             City[] citySort = heapSort(city);
-
+            System.out.println(city[0].getName());
+            System.out.println(city[1].getName());
+            System.out.println(city[2].getName());
+            System.out.println(city[3].getName());
+            System.out.println(city[4].getName());
+            System.out.println(citySort[1].getName());
+            System.out.println(citySort[2].getName());
+            System.out.println(citySort[3].getName());
+            System.out.println(citySort[4].getName());
+            System.out.println(citySort[5].getName());
+          
             System.out.print("Enter number of least infected cities per 50.000 citizens to be displayed: ");
             int k = in.nextInt();
             if (k >= 1 & k <= citySort.length) {
@@ -118,6 +102,7 @@ public class Influenza_k {
                     currentLine.setLength(0);
                     City city = new City(id, name, population, inf_cases);
                     c[n] = city;
+                    heapify(c, n - 1);
                     whiteSpace =-1;
                 }else{
                     endIndex++;
