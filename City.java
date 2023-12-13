@@ -42,8 +42,11 @@ public class City implements CityInterface, Comparable<City> {
     }
 
     public double calculateDensity() {
-        double mo = ((double) this.getPopulation()) / this.getInfluenzaCases();
-        return Double.parseDouble(String.format("%.2f", mo));
+        double mo = (this.getInfluenzaCases()* 50.000) / ((double) this.getPopulation()) ; //methodos twn triwn
+        System.out.println(this.getPopulation());
+        double factor = Math.pow(10, 2);
+        return Math.round(mo*factor)/factor;
+        //return Double.parseDouble(String.format("%.2f", mo));
     }
 
     public int compareTo(City c) {
