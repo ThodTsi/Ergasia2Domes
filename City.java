@@ -42,7 +42,7 @@ public class City implements CityInterface, Comparable<City> {
     }
 
     public double calculateDensity() {
-        double mo = (this.getInfluenzaCases()* 50.000) / ((double) this.getPopulation()) ; //methodos twn triwn
+        double mo = this.getInfluenzaCases()* 50.000 / (double) this.getPopulation() ; //methodos twn triwn
         double factor = Math.pow(10, 2);
         return Math.round(mo*factor)/factor;
     }
