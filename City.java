@@ -50,22 +50,29 @@ public class City implements CityInterface, Comparable<City> {
     public int compareTo(City c) {
         if (this.calculateDensity() == c.calculateDensity()) {
             if (this.getName().compareToIgnoreCase(c.getName()) == 0) {
-                if (this.getID() < c.getID()) {
-                    return -1;
-                } else {
+                if (this.getID() < c.getID()){
                     return 1;
+                }else{
+                    return -1;
                 }
-            } else if (this.getName().compareToIgnoreCase(c.getName()) == -1) {
-                return -1;
             } else {
-                return 1;
+                if (this.getName().compareToIgnoreCase(c.getName()) == -1){
+                    return 1;
+                }else{
+                    return -1;
+                }
             }
-
-        } else if (this.calculateDensity() < c.calculateDensity()) {
-            return -1;
-        } else {
-            return 1;
+        }else{
+            if (this.calculateDensity() < c.calculateDensity()){
+                return 1;
+            }else{
+                return -1;
+            }
         }
 
+    }
+    // bohthhtikh thodwera tha sbhstei meta
+    public String toString(){
+        return this.id + "\t" + this.name + "\t" + this.population + "\t" + this.inf_cases;
     }
 }

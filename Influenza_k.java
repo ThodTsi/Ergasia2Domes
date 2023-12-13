@@ -5,69 +5,42 @@ import java.util.Scanner;
 
 public class Influenza_k {
 
-    public static void swim(City[] c, int k) {
-        while ((k > 1) & (k / 2 < k)) {
-            if (c[k].compareTo(c[k / 2]) == 1) {
-                City temp = c[k / 2];
-                c[k / 2] = c[k];
-                c[k] = temp;
-            }
-            k /= 2;
-        }
-
-    }
-
-    public static void heapify(City[] c, int k) {
-        for (int i = k; i > 0; i--) {
-            swim(c, i);
-        }
-    }
-
-    public static City[] heapSort(City[] c) {
-        City[] temp = new City[c.length];
-        for (int i = c.length-1 ; i > 0; i--) {
-            temp[i] = c[1];
-            c[1] = c[i];
-            heapify(c, i);
-        }
-        return temp;
-    }
-
     public static void main(String args[]) {
 
         try{
             Scanner in = new Scanner(System.in);
-            System.out.print("Give file name: ");
-            String filename = in.nextLine();
+            //System.out.print("Give file name: ");
+            //String filename = in.nextLine();
             int numberOfLines = 0; // gia to megethos tou pinaka
             BufferedReader reader = new BufferedReader(new FileReader("inf.txt"));
             String line;
             while ((line = reader.readLine()) != null) {
-                System.out.println(line);
                 numberOfLines++;
             }
             
             City[] city = new City[numberOfLines];
             
-            readFile(filename, city);
-            
+            readFile("inf.txt", city);
+
             City[] citySort = heapSort(city);
-            System.out.println(city[0].getName());
-            System.out.println(city[1].getName());
-            System.out.println(city[2].getName());
-            System.out.println(city[3].getName());
-            System.out.println(city[4].getName());
-            System.out.println(citySort[1].getName());
-            System.out.println(citySort[2].getName());
-            System.out.println(citySort[3].getName());
-            System.out.println(citySort[4].getName());
-            System.out.println(citySort[5].getName());
+            for(City x: city){
+                System.out.println(x.toString());
+                System.out.println(x.calculateDensity());
+
+            }
+            System.out.println();
+
+            for(City x: citySort){
+                System.out.println(x.toString());
+            }
+            System.out.println();
+            
           
             System.out.print("Enter number of least infected cities per 50.000 citizens to be displayed: ");
             int k = in.nextInt();
             if (k >= 1 & k <= citySort.length) {
                 System.out.println("The top " + k + " cities are:");
-                for (int i = 1; i <= k; i++) {
+                for (int i = 0; i < k; i++) {
                     System.out.println(citySort[i].getName());
                 }
             }else{
@@ -85,25 +58,23 @@ public class Influenza_k {
         try{
             int id = 0, population = 0 , inf_cases = 0;
             String name = "";
-            BufferedReader reader = new BufferedReader(new FileReader("inf.txt"));
+            BufferedReader reader = new BufferedReader(new FileReader(filePath));
             StringBuilder currentLine = new StringBuilder(); //gia na mporoym na kratame kai to kathe line pera apo kathe character
             int ch ; // character se int giati o BufferedReader diavazei se ASCII
             int startIndex = 0, endIndex = 0; //start kai end gia na "kopsoyme" to line se kommatia kai na paroyme tis plhrofories
             int whiteSpace = 0; //gia na xwristei to line opote briskei keno
-            int n = -1; // metraei se poio line eimaste
+            int n = -1; // metraei se poio line eimaste kai xrhsimopoietai ws deikths ston pinaka gia ayto kai -1
 
             while ((ch = reader.read()) != -1) {
                 if ((char) ch == '\n'){
                     inf_cases = Integer.parseInt(currentLine.toString().trim().substring(startIndex, endIndex-1));
-                    //System.out.println(inf_cases);
-                
                     n++;
-                    endIndex = startIndex = 0;
-                    currentLine.setLength(0);
+                    endIndex = startIndex = 0;         //allazei line, jana arxikopoihsh
+                    currentLine.setLength(0); //"katharizoyme to line"
+                    whiteSpace =-1; //-1 giati diavazei ena parapanw whiteSpace otan allazei line
+
                     City city = new City(id, name, population, inf_cases);
-                    c[n] = city;
-                    heapify(c, n - 1);
-                    whiteSpace =-1;
+                    c[n] = city;                     
                 }else{
                     endIndex++;
                     currentLine.append((char) ch);
@@ -114,15 +85,12 @@ public class Influenza_k {
                     if (whiteSpace == 1){
                         id = Integer.parseInt(currentLine.toString().trim().substring(startIndex, endIndex-1));
                         startIndex = endIndex;
-                        //System.out.println(id);
                     }else if(whiteSpace == 2){
                         name = currentLine.toString().trim().substring(startIndex, endIndex-1);
                         startIndex = endIndex;
-                        //System.out.println(name);
                     }else if(whiteSpace == 3){
                         population = Integer.parseInt(currentLine.toString().trim().substring(startIndex, endIndex-1));
                         startIndex = endIndex;
-                        //System.out.println(population);
                     }
                     
                 }
@@ -132,6 +100,35 @@ public class Influenza_k {
             System.out.println("error");
         }
 
+    }
+
+    public static void swim(City[] c, int k) {
+        while ((k > 1) && (k / 2 < k)) {
+            if (c[k].compareTo(c[k / 2]) == 1) {
+                City temp = c[k / 2];
+                c[k / 2] = c[k];
+                c[k] = temp;
+            }
+            k /= 2;
+        }
+
+    }
+
+    public static void heapify(City[] c, int k) {
+        for (int i = k; i > 0; i--) {
+            swim(c, i);
+        }
+    }
+
+    public static City[] heapSort(City[] c) {
+        //City[] temp = new City[c.length + 1];
+        for (int i = c.length -1 ; i > 0; i--) {
+            City temp = c[0];
+            c[0] = c[i];
+            c[i] = temp;
+            heapify(c, i);
+        }
+        return c;
     }
 
 }
