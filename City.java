@@ -51,22 +51,22 @@ public class City implements CityInterface, Comparable<City> {
         if (this.calculateDensity() == c.calculateDensity()) {
             if (this.getName().compareToIgnoreCase(c.getName()) == 0) {
                 if (this.getID() < c.getID()){
-                    return 1;
-                }else{
                     return -1;
+                }else{
+                    return 1;
                 }
             } else {
                 if (this.getName().compareToIgnoreCase(c.getName()) == -1){
-                    return 1;
-                }else{
                     return -1;
+                }else{
+                    return 1;
                 }
             }
         }else{
             if (this.calculateDensity() < c.calculateDensity()){
-                return 1;
-            }else{
                 return -1;
+            }else{
+                return 1;
             }
         }
 
