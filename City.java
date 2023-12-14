@@ -42,37 +42,30 @@ public class City implements CityInterface, Comparable<City> {
     }
 
     public double calculateDensity() {
-        double mo = this.getInfluenzaCases()* 50.000 / (double) this.getPopulation() ; //methodos twn triwn
-        double factor = Math.pow(10, 3);
-        return Math.round(mo*factor)/factor;
+        double mo = this.getInfluenzaCases() * 50.000 / (double) this.getPopulation(); // methodos twn triwn
+        double factor = Math.pow(10, 2);
+        return Math.round(mo * factor) / factor;
     }
 
     public int compareTo(City c) {
-        if (this.calculateDensity() == c.calculateDensity()) {
-            if (this.getName().compareToIgnoreCase(c.getName()) == 0) {
-                if (this.getID() < c.getID()){
-                    return -1;
-                }else{
-                    return 1;
-                }
-            } else {
-                if (this.getName().compareToIgnoreCase(c.getName()) == -1){
-                    return -1;
-                }else{
-                    return 1;
-                }
-            }
-        }else{
-            if (this.calculateDensity() < c.calculateDensity()){
-                return -1;
-            }else{
-                return 1;
-            }
+        // First, compare by density
+        int dens_comp = Double.compare(this.calculateDensity(), c.calculateDensity());
+        if (dens_comp != 0) {
+            return dens_comp;
         }
 
+        // If density is the same, compare by name (case-insensitive)
+        int name_comp = this.getName().compareToIgnoreCase(c.getName());
+        if (name_comp != 0) {
+            return name_comp;
+        }
+
+        // If density and name are the same, compare by ID
+        return Integer.compare(this.getID(), c.getID());
     }
+
     // bohthhtikh thodwera tha sbhstei meta
-    public String toString(){
+    public String toString() {
         return this.id + "\t" + this.name + "\t" + this.population + "\t" + this.inf_cases;
     }
 }
