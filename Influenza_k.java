@@ -18,24 +18,28 @@ public class Influenza_k {
                 numberOfLines++;
             }
             
-            City[] city = new City[numberOfLines];
+            City[] city = new City[numberOfLines + 1];
             
             readFile("inf.txt", city);
 
             City[] citySort = heapSort(city);
             for(City x: city){
-                System.out.println(x.toString());
-                System.out.println(x.calculateDensity());
+                if (x != null){
+                    System.out.println(x.toString());
+                    System.out.println(x.calculateDensity());
+                }
 
-            }
-            System.out.println();
-
-            for(City x: citySort){
-                System.out.println(x.toString());
             }
             System.out.println();
             
-          
+            for(City x: citySort){
+                if (x!= null){
+                    System.out.println(x.toString());
+                }
+            }
+            System.out.println();
+            
+            /*
             System.out.print("Enter number of least infected cities per 50.000 citizens to be displayed: ");
             int k = in.nextInt();
             if (k >= 1 & k <= citySort.length) {
@@ -45,7 +49,7 @@ public class Influenza_k {
                 }
             }else{
                 System.out.println("This number is not valid");
-            }
+            } */
         }catch (IOException e) {
                 e.printStackTrace();
                 System.out.println("error oppening the file...");
@@ -63,7 +67,7 @@ public class Influenza_k {
             int ch ; // character se int giati o BufferedReader diavazei se ASCII
             int startIndex = 0, endIndex = 0; //start kai end gia na "kopsoyme" to line se kommatia kai na paroyme tis plhrofories
             int whiteSpace = 0; //gia na xwristei to line opote briskei keno
-            int n = -1; // metraei se poio line eimaste kai xrhsimopoietai ws deikths ston pinaka gia ayto kai -1
+            int n = 0; // metraei se poio line eimaste kai xrhsimopoietai ws deikths ston pinaka gia ayto kai -1
 
             while ((ch = reader.read()) != -1) {
                 if ((char) ch == '\n'){
@@ -121,11 +125,10 @@ public class Influenza_k {
     }
 
     public static City[] heapSort(City[] c) {
-        //City[] temp = new City[c.length + 1];
+        City [] temp = new City[c.length];
         for (int i = c.length -1 ; i > 0; i--) {
-            City temp = c[0];
-            c[0] = c[i];
-            c[i] = temp;
+            temp[i] = c[1];
+            c[1] = c[i];
             heapify(c, i);
         }
         return c;
