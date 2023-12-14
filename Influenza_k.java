@@ -22,7 +22,6 @@ public class Influenza_k {
             
             readFile("inf.txt", city);
 
-            City[] citySort = heapSort(city);
             for(City x: city){
                 if (x != null){
                     System.out.println(x.toString());
@@ -30,7 +29,9 @@ public class Influenza_k {
                 }
 
             }
-            System.out.println();
+            System.out.println(city.length);
+
+            City[] citySort = heapSort(city);
             
             for(City x: citySort){
                 if (x!= null){
@@ -78,7 +79,8 @@ public class Influenza_k {
                     whiteSpace =-1; //-1 giati diavazei ena parapanw whiteSpace otan allazei line
 
                     City city = new City(id, name, population, inf_cases);
-                    c[n] = city;                     
+                    c[n] = city;  
+                    heapify(c, n);                  
                 }else{
                     endIndex++;
                     currentLine.append((char) ch);
@@ -131,7 +133,7 @@ public class Influenza_k {
             c[1] = c[i];
             heapify(c, i);
         }
-        return c;
+        return temp;
     }
 
 }
