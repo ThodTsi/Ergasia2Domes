@@ -48,19 +48,14 @@ public class City implements CityInterface, Comparable<City> {
     }
 
     public int compareTo(City c) {
-        // First, compare by density
         int dens_comp = Double.compare(this.calculateDensity(), c.calculateDensity());
         if (dens_comp != 0) {
             return dens_comp;
         }
-
-        // If density is the same, compare by name (case-insensitive)
         int name_comp = this.getName().compareToIgnoreCase(c.getName());
         if (name_comp != 0) {
             return name_comp;
         }
-
-        // If density and name are the same, compare by ID
         return Integer.compare(this.getID(), c.getID());
     }
 

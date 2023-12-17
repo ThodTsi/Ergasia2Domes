@@ -1,16 +1,12 @@
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
-import java.util.Scanner;
 
 public class Influenza_k {
 
     public static void main(String args[]) {
 
         try{
-            Scanner in = new Scanner(System.in);
-            //System.out.print("Give file name: ");
-            //String filename = in.nextLine();
             int numberOfLines = 0; // gia to megethos tou pinaka
             BufferedReader reader = new BufferedReader(new FileReader("inf.txt"));
             String line;
@@ -30,6 +26,7 @@ public class Influenza_k {
             }
             System.out.println();
             
+            
             City[] citySort = heapSort(city);
             
             for(City x: citySort){
@@ -37,9 +34,8 @@ public class Influenza_k {
                     System.out.println(x.toString());
                 }
             }
-            
-            System.out.print("Enter number of least infected cities per 50.000 citizens to be displayed: ");
-            int k = in.nextInt();
+            int k = Integer.parseInt(args[0]);
+            System.out.println(k);
             if (k >= 1 & k <= citySort.length) {
                 System.out.println("The top " + k + " cities are:");
                 for (int i = 1; i <= k; i++) {
@@ -65,10 +61,16 @@ public class Influenza_k {
             int ch ; // character se int giati o BufferedReader diavazei se ASCII
             int startIndex = 0, endIndex = 0; //start kai end gia na "kopsoyme" to line se kommatia kai na paroyme tis plhrofories
             int whiteSpace = 0; //gia na xwristei to line opote briskei keno
-            int n = 0; // metraei se poio line eimaste kai xrhsimopoietai ws deikths ston pinaka gia ayto kai -1
+            int n = 0; // metraei se poio line eimaste kai xrhsimopoietai ws deikths ston pinaka
+            boolean readName = false; //bohthaei sto na jeroyme pote exei teleiwsei na diavazei to onoma
 
-            while ((ch = reader.read()) != -1) {
-                if ((char) ch == '\n'){
+            while (n < c.length) {
+                ch = reader.read();
+                System.out.println((char)ch);
+                if ((char) ch == '\n' || ch == -1){
+                    if(ch==-1){
+                        endIndex ++; //mono gia thn teleytaia grammh
+                    }
                     inf_cases = Integer.parseInt(currentLine.toString().trim().substring(startIndex, endIndex-1));
                     n++;
                     endIndex = startIndex = 0;         //allazei line, jana arxikopoihsh
@@ -77,27 +79,36 @@ public class Influenza_k {
 
                     City city = new City(id, name, population, inf_cases);
                     c[n] = city;  
-                    heapify(c, n);                  
+                    heapify(c, n);   
+                    if(ch ==-1){ //diavaze -1 kai meta jana -1, opote to valame gia na
+                        break;   //mas petaei apo to loop otan teleiwnei to text, dhladh sto prwto -1
+                    }
                 }else{
                     endIndex++;
                     currentLine.append((char) ch);
                 }
 
-                if (Character.isWhitespace((char) ch)){
-                    whiteSpace ++;
-                    if (whiteSpace == 1){
-                        id = Integer.parseInt(currentLine.toString().trim().substring(startIndex, endIndex-1));
-                        startIndex = endIndex;
-                    }else if(whiteSpace == 2){
-                        name = currentLine.toString().trim().substring(startIndex, endIndex-1);
-                        startIndex = endIndex;
-                    }else if(whiteSpace == 3){
-                        population = Integer.parseInt(currentLine.toString().trim().substring(startIndex, endIndex-1));
-                        startIndex = endIndex;
-                    }
+                if(Character.isWhitespace((char) ch)){
                     
+                    whiteSpace ++;
+                    System.out.println("Whitespace " + whiteSpace);
+                    if (whiteSpace == 1){
+                        id = Integer.parseInt(currentLine.toString().trim().substring(startIndex, endIndex -1)); //-1 gia to space
+                        startIndex = endIndex;
+                        System.out.println(id);
+                    }else if(readName == true){ 
+                        population = Integer.parseInt(currentLine.toString().trim().substring(startIndex, endIndex -1));
+                        startIndex = endIndex;
+                        System.out.println(population);
+                    }
+                }else if(whiteSpace >= 1 && Character.isDigit((char)ch)){ //an exoyme diavasei MONO(==1) to id kai an o xarakthras einai arithmos
+                    name = currentLine.toString().trim().substring(startIndex, endIndex-2); //-2 giati twra exoyme diabasei kai to space kai ton prwto arithmo
+                    startIndex = endIndex-1;
+                    System.out.println(name);
+                    readName = true;
                 }
             }
+
         }catch (IOException e) {
             e.printStackTrace();
             System.out.println("error");
