@@ -63,6 +63,7 @@ public class Influenza_k {
             int whiteSpace = 0; //gia na xwristei to line opote briskei keno
             int n = 0; // metraei se poio line eimaste kai xrhsimopoietai ws deikths ston pinaka
             boolean readName = false; //bohthaei sto na jeroyme pote exei teleiwsei na diavazei to onoma
+            boolean readPop = false; //epeidh sto telos kathe line diavazei ena whitespace prin to telos
 
             while (n < c.length) {
                 ch = reader.read();
@@ -71,9 +72,10 @@ public class Influenza_k {
                     if(ch==-1){
                         endIndex ++; //mono gia thn teleytaia grammh
                     }
+                    System.out.println(startIndex);
                     inf_cases = Integer.parseInt(currentLine.toString().trim().substring(startIndex, endIndex-1));
                     n++;
-                    endIndex = startIndex = 0;         //allazei line, jana arxikopoihsh
+                    endIndex = startIndex = 0;        //allazei line, jana arxikopoihsh
                     currentLine.setLength(0); //"katharizoyme to line"
                     whiteSpace =-1; //-1 giati diavazei ena parapanw whiteSpace otan allazei line
 
@@ -88,23 +90,25 @@ public class Influenza_k {
                     currentLine.append((char) ch);
                 }
 
+                System.out.println(startIndex);
                 if(Character.isWhitespace((char) ch)){
                     
                     whiteSpace ++;
                     System.out.println("Whitespace " + whiteSpace);
-                    if (whiteSpace == 1){
-                        id = Integer.parseInt(currentLine.toString().trim().substring(startIndex, endIndex -1)); //-1 gia to space
-                        startIndex = endIndex;
-                        System.out.println(id);
+                    if (whiteSpace < 0  ){
+                        continue;
                     }else if(readName == true){ 
                         population = Integer.parseInt(currentLine.toString().trim().substring(startIndex, endIndex -1));
                         startIndex = endIndex;
                         System.out.println(population);
+                        whiteSpace = -2;
+                    }else{
+                        id = Integer.parseInt(currentLine.toString().trim().substring(startIndex, endIndex -1)); //-1 gia to space
+                        startIndex = endIndex;
                     }
-                }else if(whiteSpace >= 1 && Character.isDigit((char)ch)){ //an exoyme diavasei MONO(==1) to id kai an o xarakthras einai arithmos
+                }else if(whiteSpace >= 1 && Character.isDigit((char)ch) && !readName){ //an exoyme diavasei MONO(==1) to id kai an o xarakthras einai arithmos kai an den exoyme balei hdh to onoma
                     name = currentLine.toString().trim().substring(startIndex, endIndex-2); //-2 giati twra exoyme diabasei kai to space kai ton prwto arithmo
                     startIndex = endIndex-1;
-                    System.out.println(name);
                     readName = true;
                 }
             }
