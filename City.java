@@ -62,5 +62,6 @@ public class City implements CityInterface, Comparable<City> {
     // bohthhtikh thodwera tha sbhstei meta
     public String toString() {
         return this.id + "\t" + this.name + "\t" + this.population + "\t" + this.inf_cases;
+
     }
 }

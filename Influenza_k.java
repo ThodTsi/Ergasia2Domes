@@ -7,14 +7,19 @@ public class Influenza_k {
     public static void main(String args[]) {
 
         try{
+            int k = Integer.parseInt(args[0]);
             int numberOfLines = 0; // gia to megethos tou pinaka
             BufferedReader reader = new BufferedReader(new FileReader("inf.txt"));
             String line;
             while ((line = reader.readLine()) != null) {
                 numberOfLines++;
             }
+            if(k>numberOfLines){
+                System.out.println("Error calcutaning the top " + k + " cities because there are not enough cities in the file");
+                return;
+            }
             
-            City[] city = new City[numberOfLines + 1];
+            City[] city = new City[numberOfLines + 1]; //thesh 0 kenh gia thn ypolpoihsh swroy, ara xreiazomaste syn mia thesh
             readFile("inf.txt", city);
 
             for(City x: city){
@@ -34,8 +39,7 @@ public class Influenza_k {
                     System.out.println(x.toString());
                 }
             }
-            int k = Integer.parseInt(args[0]);
-            System.out.println(k);
+
             if (k >= 1 & k <= citySort.length) {
                 System.out.println("The top " + k + " cities are:");
                 for (int i = 1; i <= k; i++) {
@@ -63,53 +67,46 @@ public class Influenza_k {
             int whiteSpace = 0; //gia na xwristei to line opote briskei keno
             int n = 0; // metraei se poio line eimaste kai xrhsimopoietai ws deikths ston pinaka
             boolean readName = false; //bohthaei sto na jeroyme pote exei teleiwsei na diavazei to onoma
-            boolean readPop = false; //epeidh sto telos kathe line diavazei ena whitespace prin to telos
 
             while (n < c.length) {
                 ch = reader.read();
-                System.out.println((char)ch);
                 if ((char) ch == '\n' || ch == -1){
                     if(ch==-1){
                         endIndex ++; //mono gia thn teleytaia grammh
                     }
-                    System.out.println(startIndex);
                     inf_cases = Integer.parseInt(currentLine.toString().trim().substring(startIndex, endIndex-1));
                     n++;
                     endIndex = startIndex = 0;        //allazei line, jana arxikopoihsh
                     currentLine.setLength(0); //"katharizoyme to line"
-                    whiteSpace =-1; //-1 giati diavazei ena parapanw whiteSpace otan allazei line
+                    whiteSpace = -1 ; //-1 giati diavazei ena parapanw whiteSpace otan allazei line
+                    readName = false;
 
                     City city = new City(id, name, population, inf_cases);
                     c[n] = city;  
                     heapify(c, n);   
                     if(ch ==-1){ //diavaze -1 kai meta jana -1, opote to valame gia na
                         break;   //mas petaei apo to loop otan teleiwnei to text, dhladh sto prwto -1
-                    }
+                   }
                 }else{
                     endIndex++;
                     currentLine.append((char) ch);
                 }
 
-                System.out.println(startIndex);
                 if(Character.isWhitespace((char) ch)){
                     
                     whiteSpace ++;
-                    System.out.println("Whitespace " + whiteSpace);
-                    if (whiteSpace < 0  ){
-                        continue;
-                    }else if(readName == true){ 
-                        population = Integer.parseInt(currentLine.toString().trim().substring(startIndex, endIndex -1));
-                        startIndex = endIndex;
-                        System.out.println(population);
-                        whiteSpace = -2;
-                    }else{
+                    if (whiteSpace == 1){
                         id = Integer.parseInt(currentLine.toString().trim().substring(startIndex, endIndex -1)); //-1 gia to space
                         startIndex = endIndex;
+                    }else if(readName == true && whiteSpace>=1){  //gia na apofygoyme na mpei sto telos toy line
+                        population = Integer.parseInt(currentLine.toString().trim().substring(startIndex, endIndex -1));
+                        startIndex = endIndex;
+                        whiteSpace = -2; //gia na mhn jana mpei sthn dhmioyrgia toy name kai epeidh sto telos kathe line diavazei 2 space parapanw gia auto kai to -3
                     }
                 }else if(whiteSpace >= 1 && Character.isDigit((char)ch) && !readName){ //an exoyme diavasei MONO(==1) to id kai an o xarakthras einai arithmos kai an den exoyme balei hdh to onoma
-                    name = currentLine.toString().trim().substring(startIndex, endIndex-2); //-2 giati twra exoyme diabasei kai to space kai ton prwto arithmo
-                    startIndex = endIndex-1;
-                    readName = true;
+                        name = currentLine.toString().trim().substring(startIndex, endIndex-2); //-2 giati twra exoyme diabasei kai to space kai ton prwto arithmo
+                        startIndex = endIndex-1;
+                        readName = true;
                 }
             }
 
