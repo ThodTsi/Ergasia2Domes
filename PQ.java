@@ -1,7 +1,7 @@
 
 public class PQ {
-    private City[] heap;
-    private int size;
+    protected City[] heap;
+    protected int size;
     public static final int def_cap = 4;
     public static final int auto_grow = 4;
 
@@ -68,6 +68,7 @@ public class PQ {
             }
             i++;
         }
+        i--;
         City temp = heap[i];
         heap[i] = null;
         size--;
