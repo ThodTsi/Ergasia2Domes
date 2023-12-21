@@ -23,7 +23,7 @@ public class test extends Influenza_k {
             System.out.println(pq.min().getName());
             System.out.println(pq.size());
             System.out.println(pq.getMin().getName());
-            System.out.println(pq.remove(65));
+            System.out.println(pq.remove(65).getName());
         } catch (IOException e) {
             e.printStackTrace();
             System.out.println("error oppening the file...");
