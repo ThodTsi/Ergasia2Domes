@@ -69,7 +69,10 @@ public class PQ {
             i++;
         }
         i--;
-        City temp = heap[i];
+        City temp = null;
+        if (stop == false)
+            return temp;
+        temp = heap[i];
         heap[i] = null;
         size--;
         swim(size);
@@ -85,5 +88,4 @@ public class PQ {
         remove(heap[1].getID());
         return temp;
     }
-
 }
