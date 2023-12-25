@@ -21,7 +21,14 @@ class DynamicInfluenza_k_withPQ {
                 return;
             }
             readFile("inf.txt", pq, k, numberOfLines);
-            System.out.println(pq.size());
+            if (k >= 1 & k <= pq.size()) {
+                System.out.println("The top k cities are: ");
+                for (int i = 1; i <= pq.size(); i++) {
+                    System.out.println(pq.heap[i].toString());
+                }
+            } else {
+                System.out.println("Number out of bounds");
+            }
         } catch (IOException e) {
             e.printStackTrace();
             System.out.println("error oppening the file...");
@@ -55,7 +62,8 @@ class DynamicInfluenza_k_withPQ {
                     currentLine.setLength(0); // "katharizoyme to line"
                     whiteSpace = -1; // -1 giati diavazei ena parapanw whiteSpace otan allazei line
                     readName = false;
-
+                    if ((id < 1 || id > 999) || (population < 0 || population > 10000000) || (name.length() > 50))
+                        throw new Exception();
                     City city = new City(id, name, population, inf_cases);
                     City max = city;
                     if (pq.size() == k) {
@@ -113,6 +121,9 @@ class DynamicInfluenza_k_withPQ {
         } catch (IOException e) {
             e.printStackTrace();
             System.out.println("error");
+        } catch (Exception exc) {
+            System.out.println("Wrong input");
+            System.exit(0);
         }
 
     }
