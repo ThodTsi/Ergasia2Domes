@@ -7,9 +7,10 @@ class DynamicInfluenza_k_withPQ {
     public static void main(String args[]) {
         try {
             int k = Integer.parseInt(args[0]);
+            String filename = args[1];
             int numberOfLines = 0; // gia to megethos tou pinaka
             PQ pq = new PQ();
-            BufferedReader reader = new BufferedReader(new FileReader("inf.txt"));
+            BufferedReader reader = new BufferedReader(new FileReader(filename));
             String line;
             while ((line = reader.readLine()) != null) {
                 numberOfLines++;
