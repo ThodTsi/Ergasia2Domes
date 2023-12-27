@@ -24,22 +24,7 @@ public class Influenza_k {
                                                        // mia thesh
             readFile("inf.txt", city);
 
-            for (City x : city) {
-                if (x != null) {
-                    System.out.println(x.toString());
-                    System.out.println(x.calculateDensity());
-                }
-
-            }
-            System.out.println();
-
             City[] citySort = heapSort(city);
-
-            for (City x : citySort) {
-                if (x != null) {
-                    System.out.println(x.toString());
-                }
-            }
 
             if (k >= 1 & k <= citySort.length) {
                 System.out.println("The top " + k + " cities are:");
