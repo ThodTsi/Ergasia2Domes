@@ -1,3 +1,5 @@
+import java.util.Arrays;
+
 public class PQmed {
     protected double[] med;
     protected int size;
@@ -11,8 +13,8 @@ public class PQmed {
 
     protected void resize() {
         double[] newMed = new double[med.length + auto_grow];
-        System.arraycopy(med, 0, newMed, 0, size + 1);
-
+        System.arraycopy(med, 0, newMed, 0, size);
+        // med = Arrays.copyOf(med, med.length + auto_grow);
         med = newMed;
     }
 
@@ -23,12 +25,11 @@ public class PQmed {
     }
 
     protected void insert(double d) {
-        if (size + 1 >= med.length - 1) {
+        if (size + 1 >= med.length) {
             resize();
         }
-        size++;
         med[size] = d;
-        swim(size);
+        size++;
     }
 
     protected int size() {
@@ -36,36 +37,23 @@ public class PQmed {
     }
 
     protected double getMed() {
-        double[] temp = new double[med.length];
-        for (int i = med.length - 1; i > 0; i--) {
-            temp[i] = med[1];
-            med[1] = med[i];
-            for (int j = i; j > 0; j--) {
-                swim(i);
-            }
-        }
-        return temp[temp.length / 2];
+        return med[med.length / 2];
 
     }
 
-    protected void clear() {
-        for (int i = 0; i < med.length; i++) {
-            med[i] = 0.0;
-        }
-    }
-
-    protected void swim(int i) {
-        if (i == 0)
-            return;
-
-        while ((i > 1) & (i / 2 < i)) {
-            if (med[i] < med[i / 2]) {
-                double temp = med[i / 2];
-                med[i / 2] = med[i];
-                med[i] = temp;
-            }
-            i /= 2;
-        }
-    }
-
+    /*
+     * protected void swim(int i) {
+     * if (i == 0)
+     * return;
+     * 
+     * while ((i > 1) & (i / 2 < i)) {
+     * if (med[i] < med[i / 2]) {
+     * double temp = med[i / 2];
+     * med[i / 2] = med[i];
+     * med[i] = temp;
+     * }
+     * i /= 2;
+     * }
+     * }
+     */
 }
