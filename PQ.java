@@ -1,3 +1,4 @@
+import java.lang.NullPointerException;;
 
 public class PQ {
     protected City[] heap;
@@ -56,27 +57,31 @@ public class PQ {
         heap[j] = temp;
     }
 
-    protected City remove(int id) {
-        int i = 1;
-        boolean stop = false;
-        while (i < heap.length & stop == false) {
-            if (heap[i].getID() == id) {
-                stop = true;
-                while (i < heap.length & heap[i + 1] != null) {
-                    exchange(i, ++i);
+    protected City remove(int id) throws NullPointerException {
+        try {
+            int i = 1;
+            int index = 0;
+            boolean stop = false;
+            City temp = null;
+            while (i < heap.length & stop == false) {
+                if (heap[i].getID() == id) {
+                    stop = true;
+                    index = i;
                 }
+                i++;
             }
-            i++;
-        }
-        i--;
-        City temp = null;
-        if (stop == false)
+            City[] c = new City[heap.length];
+            System.arraycopy(heap, 1, c, 1, index);
+            System.arraycopy(heap, index + 1, c, index, heap.length - index - 1);
+            temp = heap[index];
+            heap = c;
+            size--;
+            swim(size);
             return temp;
-        temp = heap[i];
-        heap[i] = null;
-        size--;
-        swim(size);
-        return temp;
+        } catch (NullPointerException e) {
+            System.out.println("There is no city with this ID");
+            return null;
+        }
     }
 
     protected City min() {
