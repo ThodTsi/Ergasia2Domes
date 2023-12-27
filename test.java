@@ -22,11 +22,35 @@ public class test extends Influenza_k {
             }
 
         }
-        // System.out.println(pq.getMin());
-        System.out.println(pq.min());
-        System.out.println(pq.remove(12).getName());
-        System.out.println(pq.remove(17).getName());
-        System.out.println(pq.remove(38).getName());
+        System.out.println
+        System.out.println(pq.remove(65).getName());
+        // System.out.println(pq.remove(65).getName());
+        // System.out.println(pq.remove(65).getName());
+
+        /*
+         * protected City remove(int id) {
+         * int i = 1;
+         * boolean stop = false;
+         * while (i < heap.length & stop == false) {
+         * if (heap[i].getID() == id) {
+         * stop = true;
+         * while (i < heap.length & heap[i + 1] != null) {
+         * exchange(i, ++i);
+         * }
+         * }
+         * i++;
+         * }
+         * i--;
+         * City temp = null;
+         * if (stop == false)
+         * return temp;
+         * temp = heap[i];
+         * heap[i] = null;
+         * size--;
+         * swim(size);
+         * return temp;
+         * }
+         */
 
     }
 }
