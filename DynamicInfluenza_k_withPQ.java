@@ -14,7 +14,6 @@ class DynamicInfluenza_k_withPQ {
             while ((line = reader.readLine()) != null) {
                 numberOfLines++;
             }
-            System.out.println(numberOfLines);
             if (k > numberOfLines) {
                 System.out.println(
                         "Error calcutaning the top " + k + " cities because there are not enough cities in the file");
@@ -24,7 +23,7 @@ class DynamicInfluenza_k_withPQ {
             if (k >= 1 & k <= pq.size()) {
                 System.out.println("The top k cities are: ");
                 for (int i = 1; i <= pq.size(); i++) {
-                    System.out.println(pq.heap[i].toString());
+                    System.out.println(pq.heap[i].getName());
                 }
             } else {
                 System.out.println("Number out of bounds");
