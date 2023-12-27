@@ -11,7 +11,7 @@ public class PQmed {
 
     protected void resize() {
         double[] newMed = new double[med.length + auto_grow];
-        System.arraycopy(med, 1, newMed, 1, size);
+        System.arraycopy(med, 0, newMed, 0, size);
 
         med = newMed;
     }
@@ -44,6 +44,16 @@ public class PQmed {
 
     protected int size() {
         return this.size;
+    }
+
+    protected double getMed() {
+        return med[med.length / 2];
+    }
+
+    protected void clear() {
+        for (int i = 0; i < med.length; i++) {
+            med[i] = 0.0;
+        }
     }
 
 }
