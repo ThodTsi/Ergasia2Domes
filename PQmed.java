@@ -14,7 +14,6 @@ public class PQmed {
     protected void resize() {
         double[] newMed = new double[med.length + auto_grow];
         System.arraycopy(med, 0, newMed, 0, size);
-        // med = Arrays.copyOf(med, med.length + auto_grow);
         med = newMed;
     }
 
