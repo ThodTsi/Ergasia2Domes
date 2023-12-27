@@ -1,14 +1,12 @@
 public class PQmed {
     protected double[] med;
     protected int size;
-    protected double median;
     public static final int def_cap = 4;
     public static final int auto_grow = 4;
 
     public PQmed() {
         this.med = new double[def_cap + 1];
         this.size = -1;
-        this.median = 0.0;
     }
 
     protected void resize() {
@@ -36,17 +34,12 @@ public class PQmed {
 
     protected void sort_med() {
         for (int i = 0; i < med.length - 1; i++) {
-            if (med[i] > med[i + 1]) {
-                exchange(i, i + 1);
+            for (int j = 0; j < med.length - i - 1; j++) {
+                if (med[j] > med[j + 1]) {
+                    exchange(j, j + 1);
+                }
             }
         }
-        if (size % 5 == 0) {
-            median = med[size / 2];
-        }
-    }
-
-    protected double getMed() {
-        return this.median;
     }
 
     protected int size() {
