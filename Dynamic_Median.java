@@ -16,10 +16,14 @@ public class Dynamic_Median {
             }
             System.out.println(numberOfLines);
             readFile("inf.txt", pq, pqmed, numberOfLines);
-            for (int i = 0; i <= pqmed.size(); i++) {
+            int items = 0;
+            for (int i = 1; i <= pq.size(); i++) {
+                System.out.println(pq.heap[i].getName());
+                pqmed.insert(pq.getMin().calculateDensity());
+            }
+            for (int i = 0; i <= pqmed.med.length; i++) {
                 System.out.println(pqmed.med[i]);
             }
-            System.out.println(pqmed.getMed());
         } catch (IOException e) {
             e.printStackTrace();
             System.out.println("error oppening the file...");
@@ -58,8 +62,6 @@ public class Dynamic_Median {
                         throw new Exception();
                     City city = new City(id, name, population, inf_cases);
                     pq.insert(city);
-                    pqmed.insert(city.calculateDensity());
-
                     if (ch == -1) {
                         // diavaze -1 kai meta jana -1, opote to valame gia na
                         break; // mas petaei apo to loop otan teleiwnei to text, dhladh sto prwto -1
